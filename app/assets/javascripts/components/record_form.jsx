@@ -1,7 +1,6 @@
 class RecordForm extends React.Component {
 	constructor(props, context) {
 		super(props, context);
-		// I believe this is overwriting the call of handle change to call bind(this) and keep this the same throughout the function
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 

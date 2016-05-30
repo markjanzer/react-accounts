@@ -1,11 +1,12 @@
 class Records extends React.Component {
   constructor(props, context) {
     super(props, context);
-    // question: when is .bind(this) necessary?
-    this.deleteRecord = this.deleteRecord.bind(this);
+    // question: is .bind(this) necessary for every function that you call this in (in which you want this to stay the same)?
     this.addRecord = this.addRecord.bind(this);
+    this.editRecord = this.editRecord.bind(this);
+    this.deleteRecord = this.deleteRecord.bind(this);
 
-    // refactor? do we use this.records at all? or just this.state.records?
+    // refactor: do we use this.records at all? or just this.state.records?
     // this.records = props.data;
     this.state = {
       records: props.data
@@ -17,12 +18,17 @@ class Records extends React.Component {
     this.setState({records: records});
   }
 
+  updateRecord(record, data) {
+    const index = this.state.records.indexOf(record);
+    // question: syntax for $splice?
+    const records = React.addons.update(this.state.records, { $splice: [[index, 1, data]] });
+    this.setState({records: records})
+  }
+
+  // question: how is React.addons.update(...) more efficient than this.updateState()?
   deleteRecord(record){
     const index = this.state.records.indexOf(record);
-    let records = this.state.records.slice();
-    records.splice(index, 1);
-    // question: what is the difference here?
-    // const records = React.addons.update(this.state.records, {$splice: [[index, 1]]});
+    const records = React.addons.update(this.state.records, {$splice: [[index, 1]]});
     this.setState({records: records});
   }
 
@@ -64,7 +70,7 @@ class Records extends React.Component {
           </thead>
           <tbody>
             { this.state.records.map((record) =>
-              <Record key={record.id} record={record} handleDeleteRecord={this.deleteRecord} />
+              <Record key={record.id} record={record} handleDeleteRecord={this.deleteRecord} handleEditRecord={this.updateRecord} />
             )}
           </tbody>
         </table>
