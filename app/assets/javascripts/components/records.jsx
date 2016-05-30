@@ -15,11 +15,33 @@ class Records extends React.Component {
     this.setState({records: records});
   }
 
+  credits() {
+    const credits = this.state.records.filter((record) => record.amount >= 0);
+    return credits.reduce((prev, curr) => prev + curr.amount, 0);
+  }
+
+  debits() {
+    const debits = this.state.records.filter((record) =>  record.amount < 0);
+    return debits.reduce((prev, curr) => prev + curr.amount, 0);
+  }
+
+  balance() {
+    return this.credits() + this.debits();
+  }
+
   render() {
     return (
       <div className="records">
         <h2 className="title col-md-12">Records</h2>
-        <RecordForm handleNewRecord={this.addRecord}></RecordForm>
+
+        <div className="row">
+          <AmountBox type="success" amount={this.credits()} text="Credit" />
+          <AmountBox type="danger" amount={this.debits()} text="Debit" />
+          <AmountBox type="info" amount={this.balance()} text="Balance" />
+        </div>
+
+        <RecordForm handleNewRecord={this.addRecord} />
+
         <table className="table table-bordered">
           <thead>
             <tr>
@@ -30,7 +52,7 @@ class Records extends React.Component {
           </thead>
           <tbody>
             { this.state.records.map((record) =>
-              <Record key={record.id} record={record}></Record>
+              <Record key={record.id} record={record} />
             )}
           </tbody>
         </table>

@@ -19,13 +19,10 @@ class RecordForm extends React.Component {
 	}
 
 	valid() {
-		console.log("valid");
-		// return necessary?
 		return this.state.title && this.state.date && this.state.amount;
 	}
 
 	handleSubmit(e) {
-		console.log("handleSumbit")
 		e.preventDefault();
 		// post params: (url, data, success)
 		$.post('', { record: this.state }, (result) => {
