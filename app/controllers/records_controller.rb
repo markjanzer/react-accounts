@@ -14,6 +14,13 @@ class RecordsController < ApplicationController
   	end
   end
 
+  def destroy
+    @record = Record.find(params[:id])
+    @record.destroy
+    # not sure what head :no_content does. I can guess that it sends no content in the head of the HTTP request. And none in the body?
+    head :no_content
+  end
+
   private
 
   def record_params
