@@ -24,7 +24,6 @@ class RecordForm extends React.Component {
 
 	handleSubmit(e) {
 		e.preventDefault();
-		// post params: (url, data, success)
 		$.post('', { record: this.state }, (result) => {
 			console.log("successful submit")
 			this.props.handleNewRecord(result);
@@ -38,7 +37,6 @@ class RecordForm extends React.Component {
 
 	render() {
 		return (
-			// question: why does handleSubmit not need to be called? And how do we pass in e?
 		    <form className="form-inline col-md-12" onSubmit={this.handleSubmit}>
 					<div className="form-group">
 						<input type="text" className="form-control" placeholder="Date" name="date" value={this.state.date} onChange={this.handleChange} />

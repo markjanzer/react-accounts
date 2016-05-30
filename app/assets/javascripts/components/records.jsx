@@ -1,32 +1,31 @@
 class Records extends React.Component {
   constructor(props, context) {
-    // Calls React.Component's constructor with our parameters
-    // In comparison to the coffeeScript, I believe state is context and props is props
     super(props, context);
-    // Are these all necessary?
-    this.deleteRecord = this.deleteRecord.bind(this);
-    this.addRecord = this.addRecord.bind(this);
+    // refactor: Are these all necessary?/when is .bind(this) necessary?
+    // this.deleteRecord = this.deleteRecord.bind(this);
+    // this.addRecord = this.addRecord.bind(this);
 
     // refactor? do we use this.records at all? or just this.state.records?
-    this.records = props.data;
+    // this.records = props.data;
     this.state = {
-      records: this.records
+      records: props.data
     }
   }
 
-  // refactor to Moe's code
   addRecord(record) {
+    // question: difference?
+    // const records = React.addons.update(this.state.records, {$push: [record]});
     let records = this.state.records.slice();
     records.push(record);
     this.setState({records: records});
   }
 
-  // refactor to Moe's code
   deleteRecord(record){
+    const index = this.state.records.indexOf(record);
     let records = this.state.records.slice();
-    const index = this.state.records.indexOf(record)
     records.splice(index, 1);
-    // question: why not replaceState?
+    // question: what is the difference here?
+    // const records = React.addons.update(this.state.records, {$splice: [[index, 1]]});
     this.setState({records: records});
   }
 

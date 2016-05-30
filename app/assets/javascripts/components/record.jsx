@@ -6,13 +6,11 @@ class Record extends React.Component {
 
   handleDelete(e){
     e.preventDefault();
-    // no $.delete shortcut
     $.ajax({
       method: "DELETE",
-      // how does this record have access to this?
       url: `/records/${this.props.record.id}`,
-      // is this necessary?
-      dataType: "JSON",
+      // refactor: dataType: "JSON" not necessary?
+      // dataType: "JSON",
       success: (result) => {
         this.props.handleDeleteRecord(this.props.record);
       }
