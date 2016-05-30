@@ -3,7 +3,7 @@ class Records extends React.Component {
     super(props, context);
     // question: is .bind(this) necessary for every function that you call this in (in which you want this to stay the same)?
     this.addRecord = this.addRecord.bind(this);
-    this.editRecord = this.editRecord.bind(this);
+    this.updateRecord = this.updateRecord.bind(this);
     this.deleteRecord = this.deleteRecord.bind(this);
 
     // refactor: do we use this.records at all? or just this.state.records?
