@@ -1,9 +1,9 @@
 class Records extends React.Component {
   constructor(props, context) {
     super(props, context);
-    // refactor: Are these all necessary?/when is .bind(this) necessary?
-    // this.deleteRecord = this.deleteRecord.bind(this);
-    // this.addRecord = this.addRecord.bind(this);
+    // question: when is .bind(this) necessary?
+    this.deleteRecord = this.deleteRecord.bind(this);
+    this.addRecord = this.addRecord.bind(this);
 
     // refactor? do we use this.records at all? or just this.state.records?
     // this.records = props.data;
@@ -13,10 +13,7 @@ class Records extends React.Component {
   }
 
   addRecord(record) {
-    // question: difference?
-    // const records = React.addons.update(this.state.records, {$push: [record]});
-    let records = this.state.records.slice();
-    records.push(record);
+    const records = React.addons.update(this.state.records, {$push: [record]});
     this.setState({records: records});
   }
 
